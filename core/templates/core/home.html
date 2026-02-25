@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="rounded-2xl p-8 md:p-12 bg-[color:var(--cloud)] border border-[color:var(--soft)]">
+  <div class="max-w-3xl">
+    <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-[color:var(--navy)]">
+      Tablouri din licheni
+    </h1>
+    <p class="mt-4 text-lg text-[color:var(--navy)]/80">
+      Moss art premium: handmade, eco, fără întreținere. Perfect pentru birou sau acasă.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="{% url 'catalog:product_list' %}" class="btn-primary">Vezi catalogul</a>
+      <a href="{% url 'core:contact' %}" class="btn-secondary">Cere o personalizare</a>
+    </div>
+  </div>
+</section>
+
+<section class="mt-10 grid gap-4 md:grid-cols-3">
+  <div class="card">
+    <h3 class="font-semibold">Handmade</h3>
+    <p class="mt-2 text-sm opacity-80">Fiecare piesă e lucrată manual, cu atenție la detalii.</p>
+  </div>
+  <div class="card">
+    <h3 class="font-semibold">Eco</h3>
+    <p class="mt-2 text-sm opacity-80">Licheni stabilizați — aspect natural, fără udare.</p>
+  </div>
+  <div class="card">
+    <h3 class="font-semibold">Personalizare</h3>
+    <p class="mt-2 text-sm opacity-80">Dimensiuni, rame și compoziții pe cerere.</p>
+  </div>
+</section>
+
+<section class="mt-10">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-xl md:text-2xl font-semibold">Cele mai noi produse</h2>
+    <a class="link" href="{% url 'catalog:product_list' %}">Vezi tot</a>
+  </div>
+
+  <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {% for p in best_sellers %}
+      {% include "components/_product_card.html" with product=p %}
+    {% empty %}
+      <p class="opacity-70">Nu există produse încă. Rulează comanda de seed.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

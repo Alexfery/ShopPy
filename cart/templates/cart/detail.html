@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="flex items-end justify-between gap-4">
+  <div>
+    <h1 class="text-2xl font-semibold">Coș</h1>
+    <p class="mt-1 text-sm opacity-75">Verifică produsele și continuă către checkout.</p>
+  </div>
+  <a class="btn-secondary" href="{% url 'catalog:product_list' %}">Continuă cumpărăturile</a>
+</div>
+
+<div class="mt-6 grid gap-4 lg:grid-cols-3">
+  <div class="lg:col-span-2 space-y-3">
+    {% for item in cart %}
+      <div class="card flex gap-4">
+        <div class="w-24 h-24 rounded-xl overflow-hidden bg-[color:var(--cloud)] border border-[color:var(--soft)]">
+          {% if item.product.image %}
+            <img class="w-full h-full object-cover" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+          {% endif %}
+        </div>
+
+        <div class="flex-1">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <a class="font-semibold hover:underline" href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
+              <div class="text-xs opacity-70">{{ item.product.category.name }}</div>
+            </div>
+            <div class="text-sm font-medium">{{ item.subtotal }} {{ item.product.currency }}</div>
+          </div>
+
+          <div class="mt-3 flex flex-wrap items-center gap-2">
+            <form method="post" action="{% url 'cart:update' item.product.id %}" class="flex items-center gap-2">
+              {% csrf_token %}
+              <label class="text-xs opacity-70">Cant.</label>
+              <input class="input w-24" type="number" name="quantity" min="1" value="{{ item.quantity }}">
+              <button class="btn-primary" type="submit">Update</button>
+            </form>
+
+            <a class="btn-danger" href="{% url 'cart:remove' item.product.id %}">Remove</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="card">
+        <p class="opacity-70">Coșul este gol.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="card h-fit">
+    <h2 class="font-semibold">Sumar</h2>
+    <div class="mt-3 flex items-center justify-between text-sm">
+      <span class="opacity-70">Produse</span>
+      <span>{{ cart|length }}</span>
+    </div>
+    <div class="mt-2 flex items-center justify-between text-sm">
+      <span class="opacity-70">Total</span>
+      <span class="text-lg font-semibold">{{ cart.get_total_price }} RON</span>
+    </div>
+
+    <a class="btn-primary mt-4 w-full text-center" href="{% url 'orders:checkout' %}">
+      Mergi la checkout
+    </a>
+
+    <p class="mt-3 text-xs opacity-70">
+      * Prețurile sunt orientative (RON). Poți adapta ușor pentru taxe/transport.
+    </p>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% if breadcrumbs %}
+  <nav class="mb-4 text-xs opacity-70">
+    <ol class="flex flex-wrap items-center gap-2">
+      {% for b in breadcrumbs %}
+        <li class="flex items-center gap-2">
+          {% if b.url %}
+            <a class="hover:underline" href="{{ b.url }}">{{ b.label }}</a>
+          {% else %}
+            <span>{{ b.label }}</span>
+          {% endif %}
+          {% if not forloop.last %}<span>/</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+  <div>
+    <h1 class="text-2xl font-semibold">Catalog</h1>
+    <p class="mt-1 text-sm opacity-75">Filtrează, sortează și alege un tablou premium din licheni.</p>
+  </div>
+
+  <form method="get" class="grid gap-3 md:grid-cols-3 md:items-end">
+    <div>
+      <label class="label">Caută</label>
+      <input class="input" type="text" name="q" value="{{ q }}" placeholder="ex: nordik, minimal..." />
+    </div>
+
+    <div>
+      <label class="label">Categorie</label>
+      <select class="input" name="category">
+        <option value="">Toate</option>
+        {% for c in categories %}
+          <option value="{{ c.slug }}" {% if c.slug == category_slug %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="label">Sortare</label>
+      <select class="input" name="sort">
+        <option value="newest" {% if sort == "newest" %}selected{% endif %}>Cele mai noi</option>
+        <option value="price_asc" {% if sort == "price_asc" %}selected{% endif %}>Preț: mic → mare</option>
+        <option value="price_desc" {% if sort == "price_desc" %}selected{% endif %}>Preț: mare → mic</option>
+      </select>
+    </div>
+
+    <div class="md:col-span-3 flex gap-2">
+      <button class="btn-primary" type="submit">Aplică</button>
+      <a class="btn-secondary" href="{% url 'catalog:product_list' %}">Reset</a>
+    </div>
+  </form>
+</div>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {% for p in page_obj.object_list %}
+    {% include "components/_product_card.html" with product=p %}
+  {% empty %}
+    <p class="opacity-70">Nu am găsit produse.</p>
+  {% endfor %}
+</div>
+
+{% include "partials/_pagination.html" with page_obj=page_obj %}
+
+{% endblock %}

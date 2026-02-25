@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>{% block title %}{{ meta_title|default:"Tablouri din licheni" }}{% endblock %}</title>
+  <meta name="description" content="{{ meta_description|default:'Moss art premium, handmade, eco.' }}"/>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="min-h-screen bg-[color:var(--cloud)] text-[color:var(--navy)]">
+
+  <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-[color:var(--soft)]">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between gap-4">
+      <a href="/" class="font-semibold tracking-tight">
+        <span class="text-[color:var(--electric)]">●</span> MossArt
+      </a>
+
+      <nav class="flex items-center gap-3 text-sm">
+        <a class="navlink" href="{% url 'catalog:product_list' %}">Catalog</a>
+        <a class="navlink" href="{% url 'core:about' %}">Despre</a>
+        <a class="navlink" href="{% url 'core:contact' %}">Contact</a>
+
+        <a class="btn-primary !py-2 !px-3" href="{% url 'cart:detail' %}">
+          Coș ({{ cart|length }})
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    {% include "partials/_breadcrumbs.html" %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="mt-12 border-t border-[color:var(--soft)] bg-white">
+    <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="text-sm opacity-75">© {% now "Y" %} MossArt — Tablouri din licheni</div>
+      <div class="text-sm opacity-75">Design modern, minimalist, premium</div>
+    </div>
+  </footer>
+</body>
+</html>

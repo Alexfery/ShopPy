@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h1 class="text-2xl font-semibold">Mulțumim!</h1>
+  <p class="mt-2 opacity-80">
+    Comanda ta a fost înregistrată cu succes.
+  </p>
+
+  <div class="mt-4 rounded-xl bg-[color:var(--cloud)] border border-[color:var(--soft)] p-4">
+    <div class="text-sm opacity-70">Număr comandă</div>
+    <div class="text-2xl font-semibold">#{{ order_id }}</div>
+  </div>
+
+  <div class="mt-6 flex gap-3">
+    <a class="btn-primary" href="{% url 'catalog:product_list' %}">Înapoi la catalog</a>
+    <a class="btn-secondary" href="{% url 'core:home' %}">Acasă</a>
+  </div>
+</div>
+{% endblock %}
