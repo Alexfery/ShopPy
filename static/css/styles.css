@@ -33,7 +33,7 @@
 }
 
 .input:focus{
-  border-color: rgba(30,91,255,0.45);
+  border-color: rgba(172, 48, 246, 0.45);
   box-shadow: 0 0 0 4px rgba(30,91,255,0.12);
 }
 
