@@ -1,6 +1,6 @@
 :root{
   --cloud: #F7FAFC;         /* Cloud Dancer */
-  --navy: #9b51e0;          /* Navy Dark */
+  --navy: #000000;          /* Navy Dark */
   --electric: #a16695;      /* Mauve */
   --soft: #E6EAF0;          /* Soft Gray */
   --white: #FFFFFF;         /* White */
@@ -33,7 +33,7 @@
 }
 
 .input:focus{
-  border-color: rgba(30,91,255,0.45);
+  border-color: rgba(172, 48, 246, 0.45);
   box-shadow: 0 0 0 4px rgba(30,91,255,0.12);
 }
 
